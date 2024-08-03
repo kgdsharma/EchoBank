@@ -1,11 +1,3 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: CI
 
 on:
@@ -16,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -28,4 +19,36 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-# build only that module that is changed
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Determine changed modules
+      id: changed-modules
+      run: |
+        git fetch origin main
+        CHANGED_MODULES=$(git diff --name-only origin/main | grep 'pom.xml' | xargs -I {} dirname {} | uniq)
+        echo "CHANGED_MODULES=$CHANGED_MODULES" >> $GITHUB_ENV
+
+    - name: Build changed modules
+      run: |
+        if [ -z "$CHANGED_MODULES" ]; then
+          echo "No modules changed."
+        else
+          for module in $CHANGED_MODULES; do
+            echo "Building module: $module"
+            mvn -pl $module clean install
+          done
+        fi
+
+    - name: Verify build logs
+      run: |
+        if [ -z "$CHANGED_MODULES" ]; then
+          echo "No modules were built."
+        else
+          echo "Modules built: $CHANGED_MODULES"
+        fi
