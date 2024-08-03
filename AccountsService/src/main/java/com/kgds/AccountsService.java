@@ -8,5 +8,6 @@ public class AccountsService {
 
         public static void main(String[] args) {
             SpringApplication.run(AccountsService.class, args);
+            System.out.print("AccountsService started successfully.");
         }
 }
