@@ -13,12 +13,12 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--        <version.prefix>${application.version}</version.prefix>-->
     </properties>
 
     <groupId>org.kgds</groupId>
     <artifactId>AccountsService</artifactId>
-    <version>${git.commit.id.abbrev}</version>
+<!--    <version>${git.commit.id.abbrev}</version>-->
+    <version>0.0.1-RC</version>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
