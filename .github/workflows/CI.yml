@@ -33,10 +33,9 @@ jobs:
           git fetch origin main
           CHANGED_MODULES=$(git diff --name-only origin/main | grep -E 'AccountsService|CustomersService' |
           xargs -I {} sh -c 'cd $(dirname {}); while [ ! -f pom.xml ] && [ "$PWD" != "/" ]; do cd ..; done; basename "$PWD"' | uniq | tr '\n' ' ')
-          echo "CHANGED_MODULES=${CHANGED_MODULES}" >> $GITHUB_ENV        
-          for module in ${{ env.CHANGED_MODULES }}; do
-            echo "module to be built: $module"            
-          done
+          echo "CHANGED_MODULES=${CHANGED_MODULES}" >> $GITHUB_ENV
+          echo "Modules to be built: ${{ env.CHANGED_MODULES }}"
+          
 
       - name: Build changed modules
         run: |
