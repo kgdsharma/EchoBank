@@ -18,7 +18,8 @@ public class AccountController {
                 Account.builder().CustomerId("3").accountNumber("91011").accountType("Savings").build(),
                 Account.builder().CustomerId("4").accountNumber("121314").accountType("Current").build(),
                 Account.builder().CustomerId("5").accountNumber("151617").accountType("Savings").build(),
-                Account.builder().CustomerId("6").accountNumber("181920").accountType("Current").build()
+                Account.builder().CustomerId("6").accountNumber("181920").accountType("Current").build(),
+                Account.builder().CustomerId("7").accountNumber("212223").accountType("Savings").build()
         );
         return ResponseEntity.ok(accounts);
     }
