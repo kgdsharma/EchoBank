@@ -8,7 +8,8 @@ public class CustomersService {
 
     public static void main(String[] args) {
         SpringApplication.run(CustomersService.class, args);
-        System.out.println("Customers Service started successfully");
+        System.out.println("Service started successfully");
+        System.out.println("Service started successfully on port 8081");
     }
 
 }
