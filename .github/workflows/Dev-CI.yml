@@ -55,7 +55,7 @@ jobs:
       - name: Update version in pom.xml files
         run: |
           for module in ${{ env.CHANGED_MODULES }}; do
-            VERSION=$(grep '^application.version:' $module/src/main/resources/application.yml | awk -F': ' '{print $2}')
+            VERSION=$(grep 'application.version:' $module/src/main/resources/application.yml | awk -F': ' '{print $2}')
             NEW_VERSION="${VERSION}-${{ env.GIT_COMMIT_ID }}"
             echo "Updating version in $module/pom.xml to $NEW_VERSION"
             mvn versions:set -DnewVersion=$NEW_VERSION -f $module/pom.xml
