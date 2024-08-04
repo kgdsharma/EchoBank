@@ -45,7 +45,7 @@ jobs:
           xargs -I {} sh -c 'cd $(dirname {}); while [ ! -f pom.xml ] && [ "$PWD" != "/" ]; do cd ..; done; basename "$PWD"' | uniq | tr '\n' ' ')
           echo "CHANGED_MODULES=${CHANGED_MODULES}" >> $GITHUB_ENV
           echo "Modules to be built: ${CHANGED_MODULES}"
-          
+
       - name: Get Git commit ID
         id: get-commit-id
         run: |
@@ -60,7 +60,7 @@ jobs:
             echo "Updating version in $module/pom.xml to $NEW_VERSION"
             mvn versions:set -DnewVersion=$NEW_VERSION -f $module/pom.xml
           done    
-        
+
 
       - name: Build changed modules
         run: |
@@ -80,5 +80,3 @@ jobs:
           else
             echo "Modules built: ${{ env.CHANGED_MODULES }}"
           fi
-
-#grep -E "${{ env.MODULES }}"
