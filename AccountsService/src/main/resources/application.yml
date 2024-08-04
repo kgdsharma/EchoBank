@@ -3,3 +3,4 @@ server:
 application:
     name: AccountsService
     version: 1.0.0-RC
+version: 1.0.0-RC
