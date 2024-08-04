@@ -49,8 +49,7 @@ jobs:
       - name: Get Git commit ID
         id: get-commit-id
         run: |
-          echo "GIT_COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-          echo "Git commit ID: $GIT_COMMIT_ID"
+          echo "GIT_COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV          
 
       - name: Update version from application.yml suffixed by git commit id
         run: |
