@@ -9,9 +9,10 @@
         <version>3.3.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>org.kgds</groupId>
     <artifactId>CustomersService</artifactId>
-    <version>0.0.1-RC</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

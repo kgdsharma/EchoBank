@@ -1,2 +1,5 @@
 server:
   port: 8081
+application:
+    name: CustomersService
+    version: 1.0.2-RC
