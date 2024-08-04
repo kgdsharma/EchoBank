@@ -7,7 +7,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AccountsService {
 
         public static void main(String[] args) {
-            SpringApplication.run(AccountsService.class, args);
-            System.out.println("Hello World !");
-        }
+            SpringApplication.run(AccountsService.class, args);}
 }
