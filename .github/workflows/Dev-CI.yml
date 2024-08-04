@@ -44,6 +44,7 @@ jobs:
           PARENT_POM_CHANGED=$(git diff --name-only origin/main | grep "pom.xml" | wc -l)
             if [ $PARENT_POM_CHANGED -gt 0 ]; then
                 echo "Parent POM changed. Building all modules."
+                MODULES=$(echo "${MODULES}" | tr '|' ' ')
                 CHANGED_MODULES="${MODULES}"
             else
               CHANGED_MODULES=$(git diff --name-only origin/main | grep -E "${{ env.MODULES }}" |
