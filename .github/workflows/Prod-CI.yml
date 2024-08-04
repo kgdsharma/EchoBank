@@ -1,0 +1,55 @@
+name: Prod-CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Determine changed modules
+        id: changed-modules
+        run: |
+          git fetch origin main
+          CHANGED_MODULES=$(git diff --name-only HEAD^ HEAD | grep -E 'AccountsService|CustomersService' |
+          xargs -I {} sh -c 'cd $(dirname {}); while [ ! -f pom.xml ] && [ "$PWD" != "/" ]; do cd ..; done; basename "$PWD"' | uniq | tr '\n' ' ')
+          echo "CHANGED_MODULES=${CHANGED_MODULES}" >> $GITHUB_ENV
+          echo "Modules to be built: ${CHANGED_MODULES}"
+
+
+      - name: Build changed modules
+        run: |
+          if [ -z "${{ env.CHANGED_MODULES }}" ]; then
+            echo "No modules changed."
+          else
+            for module in ${{ env.CHANGED_MODULES }}; do
+              echo "Building module: $module"
+              mvn -pl $module clean install
+            done
+          fi
+
+      - name: Verify build logs
+        run: |
+          if [ -z "${{ env.CHANGED_MODULES }}" ]; then
+            echo "No modules were built."
+          else
+            echo "Modules built: ${{ env.CHANGED_MODULES }}"
+          fi
