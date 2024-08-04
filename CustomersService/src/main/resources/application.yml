@@ -3,4 +3,3 @@ server:
 application:
     name: CustomersService
     version: 1.0.2-RC
-version: 1.0.0-RC
