@@ -17,7 +17,6 @@
 
     <groupId>org.kgds</groupId>
     <artifactId>AccountsService</artifactId>
-    <version>${git.commit.id.abbrev}</version>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
