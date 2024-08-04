@@ -17,6 +17,7 @@
 
     <groupId>org.kgds</groupId>
     <artifactId>AccountsService</artifactId>
+    <version>xx</version>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
