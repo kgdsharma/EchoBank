@@ -26,6 +26,12 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - name: Read module names from root pom.xml
+        id: read-modules
+        run: |
+          MODULES=$(xmllint --xpath "//*[local-name()='module']/text()" pom.xml | tr '\n' ' ')
+          echo "MODULES=${MODULES}" >> $GITHUB_ENV
+          echo "Modules read from POM : ${MODULES}"
 
       - name: Determine changed modules
         id: changed-modules
@@ -55,3 +61,5 @@ jobs:
           else
             echo "Modules built: ${{ env.CHANGED_MODULES }}"
           fi
+
+#grep -E "${{ env.MODULES }}"
