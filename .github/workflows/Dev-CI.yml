@@ -30,7 +30,7 @@ jobs:
       - name: Install xmllint
         run: sudo apt-get install -y libxml2-utils
 
-      - name: Read module names from root pom.xml
+      - name: Read module names from root pom
         id: read-modules
         run: |
           MODULES=$(xmllint --xpath "//*[local-name()='module']/text()" pom.xml | tr '\n' ' ' | sed 's/ /|/g' | sed 's/|$//')
