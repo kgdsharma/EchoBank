@@ -52,7 +52,7 @@ jobs:
           echo "GIT_COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
           echo "Git commit ID: $GIT_COMMIT_ID"
 
-      - name: Update version in pom.xml files
+      - name: Update version from application.yml suffixed by git commit id
         run: |
           for module in ${{ env.CHANGED_MODULES }}; do
             VERSION=$(grep 'version:' $module/src/main/resources/application.yml | awk -F': ' '{print $2}')

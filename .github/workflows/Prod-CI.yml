@@ -46,6 +46,19 @@ jobs:
           echo "CHANGED_MODULES=${CHANGED_MODULES}" >> $GITHUB_ENV
           echo "Modules to be built: ${CHANGED_MODULES}"
 
+      - name: Get Git commit ID
+        id: get-commit-id
+        run: |
+          echo "GIT_COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV          
+
+      - name: Update version from application.yml suffixed by git commit id
+        run: |
+          for module in ${{ env.CHANGED_MODULES }}; do
+            VERSION=$(grep 'version:' $module/src/main/resources/application.yml | awk -F': ' '{print $2}')
+            NEW_VERSION="${VERSION}-${{ env.GIT_COMMIT_ID }}"
+            echo "Updating version in $module/pom.xml to $NEW_VERSION"
+            mvn versions:set -DnewVersion=$NEW_VERSION -f $module/pom.xml
+          done 
 
       - name: Build changed modules
         run: |
