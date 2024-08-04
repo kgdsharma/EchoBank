@@ -33,7 +33,7 @@ jobs:
       - name: Read module names from root pom.xml
         id: read-modules
         run: |
-          MODULES=$(xmllint --xpath "//*[local-name()='module']/text()" pom.xml | tr '\n' ' ' | sed 's/ /|/g')
+          MODULES=$(xmllint --xpath "//*[local-name()='module']/text()" pom.xml | tr '\n' ' ' | sed 's/ /|/g' | sed 's/|$//')
           echo "MODULES=${MODULES}" >> $GITHUB_ENV
           echo "Modules read from POM : ${MODULES}"
 
