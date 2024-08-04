@@ -29,7 +29,7 @@ jobs:
         id: changed-modules
         run: |
           git fetch origin main
-          CHANGED_MODULES=$(git diff --name-only HEAD^ HEAD | grep -E 'AccountsService|CustomersService' |
+          CHANGED_MODULES=$(git diff --name-only HEAD~1 HEAD | grep -E 'AccountsService|CustomersService' |
           xargs -I {} sh -c 'cd $(dirname {}); while [ ! -f pom.xml ] && [ "$PWD" != "/" ]; do cd ..; done; basename "$PWD"' | uniq | tr '\n' ' ')
           echo "CHANGED_MODULES=${CHANGED_MODULES}" >> $GITHUB_ENV
           echo "Modules to be built: ${CHANGED_MODULES}"
