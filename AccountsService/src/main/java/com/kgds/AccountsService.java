@@ -10,7 +10,7 @@ public class AccountsService {
             SpringApplication.run(AccountsService.class, args);
             System.out.print("AccountsService started successfully.");
             for (int i = 0; i < 10; i++) {
-                System.out.println("Service started successfully on port 8080");
+                System.out.println("Service started successfully on port 8083");
 
             }
         }
